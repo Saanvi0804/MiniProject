@@ -41,43 +41,72 @@ for (int i=0;i<3;i++){
 }
 }
 
+void resetBoard(char box[3][3]){
+for (int i=0;i<3;i++){
+    for (int j=0;j<3;j++){
+        box[i][j]=' ';
+    }
+}
+}
+
 int main(){
     int row,col;
     char currPlayer='X';
+    int oscore=0,xscore=0;
     char box[3][3]={{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}};
     cout<<"Tic tac toe\n";
-    while(true)
-    {
-    printBoard(box);
-    cout<<"Player "<< currPlayer <<" Enter the row and column number (0 to 2)";
-    cin>>row>>col;
+    for (int round=1;round<5;round++){
+        resetBoard(box);
+        currPlayer = 'X';
+        cout << "\nRound "<<round<<"\n";
+        while(true)
+        {
+        printBoard(box);
+        cout<<"Player "<< currPlayer <<" Enter the row and column number (0 to 2) ";
+        cin>>row>>col;
 
-    if (row>2 || row<0 || col>2 || col<0){
-        cout<<"Error, try again"<<"\n";
-        currPlayer = (currPlayer == 'X') ? 'O' : 'X';
-    }
-    else{
-        if (box[row][col]==' ')
-        box[row][col]= currPlayer;
-        else{
-        cout<<"Error, try again"<<"\n";
-        currPlayer = (currPlayer == 'X') ? 'O' : 'X';
+            if (row>2 || row<0 || col>2 || col<0){
+                cout<<"Error, try again"<<"\n";
+                currPlayer = (currPlayer == 'X') ? 'O' : 'X';
+            }
+            else{
+                if (box[row][col]==' ')
+                box[row][col]= currPlayer;
+                else{
+                cout<<"Error, try again"<<"\n";
+                currPlayer = (currPlayer == 'X') ? 'O' : 'X';
+                }
+            }
+
+            if (ifWon(box,currPlayer)){
+                printBoard(box);
+                cout<<"Player "<<currPlayer<<" won";
+            if (currPlayer=='X')
+                xscore++;
+            else
+                oscore++;
+            break;
+            }
+
+            if (isDraw(box)){
+                printBoard(box);
+                cout<<"It is a draw!!";
+                break;
+            }
+        currPlayer=(currPlayer=='X')?'O':'X';
         }
-    }
+        }
 
-    if (ifWon(box,currPlayer)){
-        printBoard(box);
-        cout<<"Player "<<currPlayer<<" won";
-        break;
-    }
+    cout<<"\nThe scores are: \n";
+    cout<<"X won: "<<xscore;
+    cout<<" O won: "<<oscore;
 
-    if (isDraw(box)){
-        printBoard(box);
-        cout<<"It is a draw!!";
-        break;
-    }
-    currPlayer=(currPlayer=='X')?'O':'X';
-    }
+    if (xscore>oscore)
+        cout<<"X is the winner!!";
+    else if (xscore<oscore)
+        cout<<"O is the winner!!";
+    else
+        cout<<"Its a draw!!";
 
     return 0;
 }
