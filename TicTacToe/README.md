@@ -1,0 +1,1 @@
+A simple console-based Tic-Tac-Toe game implemented in C++. Two players take turns to mark X or O in a 3×3 grid. The game checks for winning conditions or a draw after every move. A great beginner-friendly project to understand 2D arrays, conditionals, and user interaction in C++.
